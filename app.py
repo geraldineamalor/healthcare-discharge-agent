@@ -17,7 +17,7 @@ if st.button("Simplify Instructions"):
     simplified = simplify_text(input_text)
     plan = create_action_plan(input_text)
     alerts = detect_dangers(input_text)
-    reminders = create_reminders()
+    reminders = create_reminders(input_text)
     readability = get_readability(simplified)
 
     st.subheader("📄 Simplified Instructions")
