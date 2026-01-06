@@ -1,0 +1,9 @@
+{
+  "before": "Patient advised to ambulate PRN...",
+  "after": "Walk lightly when you feel comfortable.",
+  "action_plan": {
+    "Day 1": ["Medicine", "Wound care"]
+  },
+  "alerts": ["High fever", "Bleeding"],
+  "citations": ["CDC", "MedlinePlus"]
+}
