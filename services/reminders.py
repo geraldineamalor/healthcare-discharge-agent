@@ -1,39 +1,88 @@
 import re
 from datetime import datetime, timedelta
 
-
-def extract_followup_days(text):
-    """
-    Extract follow-up duration from text.
-    Supports:
-    - 'in 7 days'
-    - 'in 1 week'
-    - 'within 2 weeks'
-    """
-
+def extract_duration(text):
     text = text.lower()
 
-    # Match days
-    day_match = re.search(r'(\d+)\s*day[s]?', text)
-    if day_match:
-        return int(day_match.group(1))
+    patterns = [
+        (r'(\d+)\s*year[s]?', 'year'),
+        (r'(\d+)\s*month[s]?', 'month'),
+        (r'(\d+)\s*week[s]?', 'week'),
+        (r'(\d+)\s*day[s]?', 'day'),
+    ]
 
-    # Match weeks
-    week_match = re.search(r'(\d+)\s*week[s]?', text)
-    if week_match:
-        return int(week_match.group(1)) * 7
+    for pattern, unit in patterns:
+        match = re.search(pattern, text)
+        if match:
+            return int(match.group(1)), unit
 
-    return None  # No follow-up mentioned
+    return None, None
 
 
 def create_reminders(text):
-    followup_days = extract_followup_days(text)
+    value, unit = extract_duration(text)
+    today = datetime.today()
     reminders = {}
 
-    if followup_days:
-        followup_date = datetime.today() + timedelta(days=followup_days)
-        reminders["Doctor Follow-Up"] = followup_date.strftime("%Y-%m-%d")
+    if unit == "day":
+        reminders["Follow-Up"] = (today + timedelta(days=value)).strftime("%Y-%m-%d")
+
+    elif unit == "week":
+        reminders["Follow-Up"] = (today + timedelta(days=value * 7)).strftime("%Y-%m-%d")
+
+    elif unit == "month":
+        reminders["Medication Review"] = (today + timedelta(days=30)).strftime("%Y-%m-%d")
+        reminders["Duration"] = f"{value} month(s)"
+
+    elif unit == "year":
+        reminders["Quarterly Review"] = (today + timedelta(days=90)).strftime("%Y-%m-%d")
+        reminders["Duration"] = f"{value} year(s)"
+
     else:
-        reminders["Doctor Follow-Up"] = "Not specified in instructions"
+        reminders["Follow-Up"] = "Not specified in instructions"
+
+    return reminders
+import re
+from datetime import datetime, timedelta
+
+def extract_duration(text):
+    text = text.lower()
+
+    patterns = [
+        (r'(\d+)\s*year[s]?', 'year'),
+        (r'(\d+)\s*month[s]?', 'month'),
+        (r'(\d+)\s*week[s]?', 'week'),
+        (r'(\d+)\s*day[s]?', 'day'),
+    ]
+
+    for pattern, unit in patterns:
+        match = re.search(pattern, text)
+        if match:
+            return int(match.group(1)), unit
+
+    return None, None
+
+
+def create_reminders(text):
+    value, unit = extract_duration(text)
+    today = datetime.today()
+    reminders = {}
+
+    if unit == "day":
+        reminders["Follow-Up"] = (today + timedelta(days=value)).strftime("%Y-%m-%d")
+
+    elif unit == "week":
+        reminders["Follow-Up"] = (today + timedelta(days=value * 7)).strftime("%Y-%m-%d")
+
+    elif unit == "month":
+        reminders["Medication Review"] = (today + timedelta(days=30)).strftime("%Y-%m-%d")
+        reminders["Duration"] = f"{value} month(s)"
+
+    elif unit == "year":
+        reminders["Quarterly Review"] = (today + timedelta(days=90)).strftime("%Y-%m-%d")
+        reminders["Duration"] = f"{value} year(s)"
+
+    else:
+        reminders["Follow-Up"] = "Not specified in instructions"
 
     return reminders

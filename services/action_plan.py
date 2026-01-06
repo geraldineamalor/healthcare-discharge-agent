@@ -1,24 +1,24 @@
-import re
+from services.duration_utils import extract_duration_days
 
-def extract_days(text):
-    """
-    Extract number of days from discharge instructions.
-    Example matches: '5 days', '7 day'
-    """
-    match = re.search(r'(\d+)\s*day[s]?', text.lower())
-    if match:
-        return int(match.group(1))
-    return 2  # sensible default if duration not found
-
+MAX_DAILY_PLAN_DAYS = 14  # UI limit
 
 def create_action_plan(text):
-    days = extract_days(text)
+    total_days = extract_duration_days(text) or 2
     plan = {}
 
-    for day in range(1, days + 1):
+    if total_days > MAX_DAILY_PLAN_DAYS:
+        return {
+            "Medication Duration": f"{total_days} days",
+            "Note": (
+                "This medication is prescribed for a long duration. "
+                "Follow daily medication schedule as advised by your doctor."
+            )
+        }
+
+    for day in range(1, total_days + 1):
         plan[f"Day {day}"] = {
             "Morning": "Take prescribed medication",
-            "Evening": "Rest and follow wound care instructions"
+            "Evening": "Rest and follow care instructions"
         }
 
     return plan
