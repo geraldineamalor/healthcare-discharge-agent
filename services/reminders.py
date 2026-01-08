@@ -27,7 +27,9 @@ def create_reminders(text):
 
     followup_sentence = extract_followup_sentence(text)
     if not followup_sentence:
+        reminders["Follow-Up"] = "Follow-up recommended (date not specified)"
         return reminders
+
 
     days = extract_duration_days(followup_sentence)
 

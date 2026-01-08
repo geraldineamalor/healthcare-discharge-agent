@@ -4,3 +4,4 @@ textstat
 langdetect
 python-dateutil
 pandas
+twilio

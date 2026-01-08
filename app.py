@@ -7,10 +7,12 @@ from evaluation.readability import get_readability
 from utils.disclaimers import medical_disclaimer
 from utils.citations import get_citations
 from services.care_type import is_chronic_care
+from services.sms_scheduler import schedule_medication_sms
+from services import care_type
 
 st.set_page_config(page_title="Discharge Instruction Simplifier")
 
-st.title("🏥 Discharge Instruction Simplifier & Follow-Up Agent")
+st.title("Discharge Instruction Simplifier & Follow-Up Agent")
 
 input_text = st.text_area("Paste Discharge Instructions")
 
@@ -28,24 +30,31 @@ if st.session_state.submitted:
     reminders = create_reminders(input_text)
     readability = get_readability(simplified)
 
-    care_type = "Chronic Care" if is_chronic_care(input_text) else "Acute / Short-Term Care"
 
     # ---------- Care Classification ----------
-    st.subheader("🩺 Care Classification")
-    st.info(care_type)
-
+    st.subheader("Care Classification")
+    if care_type == "Chronic Care":
+        st.success("🟢 Chronic Care: Long-term management")
+    else:
+        st.warning("🟡 Acute Care: Short-term recovery")
+        
     # ---------- Simplified Instructions ----------
-    st.subheader("📄 Simplified Instructions")
-    st.write(simplified)
+    with st.container(border=True):
+        st.subheader("Simplified Instructions")
+        st.write(simplified)
+
 
     # ---------- Action Plan ----------
-    st.subheader("📅 Action Plan")
+    st.subheader("Action Plan")
 
     if care_type == "Chronic Care":
-        st.json(plan)
+        st.markdown("### Ongoing Care Plan")
+        for item in plan["Daily Routine"]:
+            st.checkbox(item, disabled=True)
 
     else:
-        st.subheader("✅ Daily Checklist")
+        with st.container(border=True):
+            st.subheader("Daily Checklist")
 
         total = 0
         completed = 0
@@ -88,15 +97,27 @@ if st.session_state.submitted:
             st.progress(completed / total)
 
     # ---------- Danger Signs ----------
-    st.subheader("⚠️ Danger Signs")
-    st.write(alerts)
+    with st.container(border=True):
+            st.subheader("Danger Signs")
+            st.error("⚠️ Seek medical help if you notice:")
+            for alert in alerts:
+                st.markdown(f"- {alert}")
+
 
     # ---------- Follow-Up Reminders ----------
-    st.subheader("⏰ Follow-Up Reminders")
-    st.json(reminders)
+    with st.container(border=True):
+            st.subheader("Follow-Up Reminders")
+            st.json(reminders)
+
+    phone = st.text_input("Enter phone number for SMS reminders")
+
+    if st.button("Enable SMS Reminders"):
+        schedule_medication_sms(plan, phone)
+        st.success("SMS reminders scheduled!")
+
 
     # ---------- Readability ----------
-    st.subheader("📊 Readability Score")
+    st.subheader("Readability Score")
     st.write(readability)
 
     # ---------- Footer ----------

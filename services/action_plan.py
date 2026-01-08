@@ -1,41 +1,25 @@
 from services.duration_utils import extract_duration_days
-from services.frequency_utils import extract_frequency
+from services.frequency_utils import parse_frequency
 
 def create_action_plan(text):
-    days = extract_duration_days(text) or 1
-    frequency = extract_frequency(text)  # once | twice | thrice
-
     plan = {}
 
-    for day in range(1, days + 1):
-        plan[f"Day {day}"] = {}
+    duration = extract_duration_days(text) or 1
+    frequency_slots = parse_frequency(text)
 
-        if frequency == "once":
-            plan[f"Day {day}"]["Morning"] = [
-                "Take prescribed medication"
-            ]
+    for day in range(1, duration + 1):
+        day_key = f"Day {day}"
+        plan[day_key] = {}
 
-        elif frequency == "twice":
-            plan[f"Day {day}"]["Morning"] = [
-                "Take prescribed medication"
-            ]
-            plan[f"Day {day}"]["Evening"] = [
-                "Take prescribed medication"
-            ]
+        # Medication tasks
+        if frequency_slots:
+            for slot in frequency_slots:
+                plan[day_key].setdefault(slot, []).append(
+                    "Take prescribed medication"
+                )
 
-        elif frequency == "thrice":
-            plan[f"Day {day}"]["Morning"] = [
-                "Take prescribed medication"
-            ]
-            plan[f"Day {day}"]["Afternoon"] = [
-                "Take prescribed medication"
-            ]
-            plan[f"Day {day}"]["Evening"] = [
-                "Take prescribed medication"
-            ]
-
-        # Care instruction always included
-        plan[f"Day {day}"].setdefault("Evening", []).append(
+        # Always add rest instruction in evening
+        plan[day_key].setdefault("Evening", []).append(
             "Rest and follow care instructions"
         )
 

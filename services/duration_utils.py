@@ -2,21 +2,19 @@ import re
 
 def extract_duration_days(text):
     """
-    Extracts duration from text and returns number of days.
-    Supports days, weeks, and months.
+    Extract number of days from phrases like:
+    - in 10 days
+    - after 2 weeks
+    - within 1 week
     """
     text = text.lower()
 
-    match = re.search(r'(\d+)\s*(day|days|week|weeks|month|months)', text)
-    if not match:
-        return None
+    day_match = re.search(r'(\d+)\s*day', text)
+    if day_match:
+        return int(day_match.group(1))
 
-    value = int(match.group(1))
-    unit = match.group(2)
+    week_match = re.search(r'(\d+)\s*week', text)
+    if week_match:
+        return int(week_match.group(1)) * 7
 
-    if "week" in unit:
-        return value * 7
-    if "month" in unit:
-        return value * 30
-
-    return value  # days
+    return None

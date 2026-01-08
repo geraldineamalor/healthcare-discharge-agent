@@ -1,11 +1,18 @@
-def extract_frequency(text):
+import re
+
+def parse_frequency(text):
     text = text.lower()
 
-    if "thrice daily" in text or "three times daily" in text:
-        return "thrice"
-    if "twice daily" in text or "two times daily" in text:
-        return "twice"
-    if "once daily" in text or "daily" in text:
-        return "once"
+    if "thrice" in text or "three times" in text:
+        return ["Morning", "Afternoon", "Evening"]
 
-    return "once"
+    if "twice" in text or "two times" in text:
+        return ["Morning", "Evening"]
+
+    if "once" in text or "daily" in text:
+        return ["Morning"]
+
+    if "every 8 hours" in text:
+        return ["Morning", "Afternoon", "Evening"]
+
+    return []
