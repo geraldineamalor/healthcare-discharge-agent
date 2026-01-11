@@ -5,3 +5,6 @@ langdetect
 python-dateutil
 pandas
 twilio
+langchain
+chromadb
+sentence-transformers

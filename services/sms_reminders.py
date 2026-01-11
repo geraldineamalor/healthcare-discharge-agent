@@ -8,5 +8,6 @@ TWILIO_PHONE = os.getenv("TWILIO_PHONE_NUMBER")
 
 client = Client(TWILIO_SID, TWILIO_AUTH)
 
-def send_sms_mock(number, message):
-    print(f"[SMS → {number}] {message}")
+def send_sms_mock(phone, message):
+    print(f"[MOCK SMS] To {phone}: {message}")
+

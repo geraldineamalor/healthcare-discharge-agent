@@ -1,0 +1,14 @@
+{
+  "diabetes": {
+    "care": "Monitor blood glucose daily and follow dietary advice.",
+    "danger": ["Low blood sugar", "Blurred vision", "Foot ulcers"]
+  },
+  "uti": {
+    "care": "Increase fluids and complete antibiotic course.",
+    "danger": ["Fever", "Back pain", "Burning urination"]
+  },
+  "post surgery": {
+    "care": "Keep wound clean and avoid heavy lifting.",
+    "danger": ["Wound redness", "Fever", "Pus discharge"]
+  }
+}

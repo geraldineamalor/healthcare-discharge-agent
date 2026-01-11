@@ -9,6 +9,8 @@ from utils.citations import get_citations
 from services.care_type import is_chronic_care
 from services.sms_scheduler import schedule_medication_sms
 from services import care_type
+from services.context_retriever import retrieve_context
+
 
 st.set_page_config(page_title="Discharge Instruction Simplifier")
 
@@ -42,6 +44,16 @@ if st.session_state.submitted:
     with st.container(border=True):
         st.subheader("Simplified Instructions")
         st.write(simplified)
+    context = retrieve_context(input_text)
+
+    if context:
+        st.subheader("🧠 Condition-Specific Guidance")
+        st.write(context["care"])
+
+        st.subheader("⚠️ Condition-Specific Danger Signs")
+        for sign in context["danger"]:
+            st.markdown(f"- {sign}")
+
 
 
     # ---------- Action Plan ----------
@@ -96,13 +108,18 @@ if st.session_state.submitted:
         if total > 0:
             st.progress(completed / total)
 
-    # ---------- Danger Signs ----------
+   # ---------- Danger Signs ----------
     with st.container(border=True):
-            st.subheader("Danger Signs")
-            st.error("⚠️ Seek medical help if you notice:")
+        st.subheader("⚠️ Danger Signs")
+        st.error("Seek medical help if you notice:")
+
+        alerts = detect_dangers(input_text)
+
+        if alerts:
             for alert in alerts:
                 st.markdown(f"- {alert}")
-
+        else:
+            st.markdown("- Contact your doctor if symptoms worsen or new symptoms appear.")
 
     # ---------- Follow-Up Reminders ----------
     with st.container(border=True):
