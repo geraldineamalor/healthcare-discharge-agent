@@ -1,208 +1,145 @@
-# 🏥 Discharge Instruction Simplifier & Follow-Up Agent
+# 🏥 Discharge Instruction Simplifier & Agentic Care Planner
 
-A healthcare-focused **agentic AI application** that transforms complex hospital discharge instructions into clear, actionable, and patient-friendly care plans with daily checklists, danger alerts, and follow-up reminders.
-
----
-
-## 🔗 Project Links
-
-- **Live Demo (Streamlit):** https://YOUR-STREAMLIT-LINK  
-- **GitHub Repository:** https://github.com/YOUR-GITHUB-REPO  
+A **patient-centric, explainable AI system** that transforms complex hospital discharge instructions into **clear, actionable care plans**, with **transparent agent reasoning** and a **safety-first design**.
 
 ---
 
-## 📌 Problem Statement
-
-Hospital discharge instructions are often written in complex medical language. Patients struggle to understand medication schedules, lifestyle restrictions, follow-up timelines, and danger signs — leading to poor adherence, missed appointments, and preventable health complications.
-
----
-
-## 💡 Solution Overview
-
-This application acts as an **intelligent discharge assistant** that:
-- Simplifies medical instructions
-- Automatically classifies care type (acute vs chronic)
-- Generates structured daily care plans
-- Highlights personalized danger signs
-- Creates follow-up reminders
-- Tracks daily task completion through a checklist
-
----
-
-## 🚀 Key Features
-
-- 📄 Simplified discharge instructions  
-- 🩺 Care classification (Acute / Chronic)  
-- 📅 Dynamic action plan generation  
-- ✅ Daily checklist with progress tracking  
-- ⚠️ Danger sign detection  
-- ⏰ Follow-up reminder creation  
-- 📊 Readability score analysis  
-- 🧠 Agentic decision logic  
-
----
-
-## 🧠 Agentic AI Design
-
-This project follows an **agentic AI architecture** using deterministic decision-making and tool orchestration rather than black-box LLMs.
-
-### Agentic capabilities implemented:
-- **Autonomous decision-making** – determines care type and workflow automatically  
-- **Multi-step planning** – breaks unstructured text into tasks, timelines, and reminders  
-- **Tool usage** – modular services for simplification, planning, alerts, and reminders  
-- **Context awareness** – preserves instruction context across modules  
-- **State management** – tracks checklist completion using session state  
-
-> The system is **LLM-ready** and can be extended with RAG or local/cloud LLMs in future versions.
-
----
-
-## ⚙️ How the System Works
-# 🏥 Discharge Instruction Simplifier & Follow-Up Agent
-
-A healthcare-focused **agentic AI application** that transforms complex hospital discharge instructions into clear, actionable, and patient-friendly care plans with daily checklists, danger alerts, and follow-up reminders.
-
----
-
-## 🔗 Project Links
-
-- **Live Demo (Streamlit):** https://healthcare-discharge-agent-aiignite.streamlit.app/
-- **GitHub Repository:** https://github.com/geraldineamalor/healthcare-discharge-agent
+## 🚀 Live Demo
+- 🔗 **Streamlit App:** https://<your-streamlit-link>
+- 🔗 **GitHub Repository:** https://<your-github-link>
 
 ---
 
 ## 📌 Problem Statement
 
-Hospital discharge instructions are often written in complex medical language. Patients struggle to understand medication schedules, lifestyle restrictions, follow-up timelines, and danger signs — leading to poor adherence, missed appointments, and preventable health complications.
+Hospital discharge instructions are often:
+- Written in complex medical language
+- Difficult for patients to follow correctly
+- Prone to misinterpretation, leading to poor adherence and readmissions
+
+Patients frequently struggle to understand:
+- Medication schedules
+- Duration of treatment
+- Activity restrictions
+- Warning signs requiring medical attention
 
 ---
 
 ## 💡 Solution Overview
 
-This application acts as an **intelligent discharge assistant** that:
-- Simplifies medical instructions
-- Automatically classifies care type (acute vs chronic)
-- Generates structured daily care plans
-- Highlights personalized danger signs
-- Creates follow-up reminders
-- Tracks daily task completion through a checklist
+This project introduces an **Agentic Discharge Instruction Assistant** that:
+
+- Simplifies medical instructions into plain language
+- Generates **day-wise care plans and checklists**
+- Handles **multiple medications with different durations**
+- Highlights **danger signs** and **follow-up timelines**
+- Explains **how decisions were made** using an Agent Reasoning Panel
+
+> The system prioritizes **deterministic logic and transparency**, avoiding hallucination-prone AI outputs in medical workflows.
 
 ---
 
-## 🚀 Key Features
+## 🧠 Agentic Workflow
 
-- 📄 Simplified discharge instructions  
-- 🩺 Care classification (Acute / Chronic)  
-- 📅 Dynamic action plan generation  
-- ✅ Daily checklist with progress tracking  
-- ⚠️ Danger sign detection  
-- ⏰ Follow-up reminder creation  
-- 📊 Readability score analysis  
-- 🧠 Agentic decision logic  
+The system follows a structured **agent-like reasoning pipeline**:
 
----
-
-## 🧠 Agentic AI Design
-
-This project follows an **agentic AI architecture** using deterministic decision-making and tool orchestration rather than black-box LLMs.
-
-### Agentic capabilities implemented:
-- **Autonomous decision-making** – determines care type and workflow automatically  
-- **Multi-step planning** – breaks unstructured text into tasks, timelines, and reminders  
-- **Tool usage** – modular services for simplification, planning, alerts, and reminders  
-- **Context awareness** – preserves instruction context across modules  
-- **State management** – tracks checklist completion using session state  
-
-> The system is **LLM-ready** and can be extended with RAG or local/cloud LLMs in future versions.
+1. **Detection** – Extracts medications, frequencies, durations, and follow-ups  
+2. **Planning** – Builds a multi-day action plan  
+3. **Scheduling** – Handles overlapping medication timelines  
+4. **Safety Reasoning** – Identifies danger signs and follow-up needs  
+5. **Explanation** – Exposes internal reasoning for transparency  
 
 ---
 
-## ⚙️ How the System Works
+## 🩺 Key Features
 
-``` bash
-Discharge Instructions
-↓
-Text Simplification
-↓
-Care Type Classification
-↓
-Action Plan Generation
-↓
-Daily Checklist Creation
-↓
-Danger Sign Detection
-↓
-Follow-Up Reminder Scheduling
+### ✅ Simplified Instructions
+- Converts clinical text into patient-friendly language
 
+### ✅ Daily Care Checklist
+- Morning / Afternoon / Evening tasks
+- Progress tracking for adherence
+
+### ✅ Medication-Aware Planning
+- Independent handling of medication durations
+- Prevents under- or over-treatment
+
+### ✅ Agent Reasoning Panel
+- Explains *why* the care plan looks the way it does
+- Improves trust and auditability
+
+### ✅ Safety & Follow-Up Awareness
+- Highlights warning signs
+- Dynamically calculates follow-up dates
+
+### ✅ SMS Reminder (Mock)
+- Demonstrates extensibility for real-world reminders
+
+---
+
+## 🛡 Why We Avoided LLM APIs
+
+In healthcare systems:
+- Hallucinations are unacceptable
+- Explainability is mandatory
+- Deterministic behavior is preferred
+
+This project deliberately avoids black-box LLM APIs and instead relies on:
+- Structured extraction
+- Heuristic reasoning
+- Retrieval-assisted context
+
+---
+
+## 🧩 Tech Stack
+
+| Category | Tools |
+|--------|------|
+| Frontend | Streamlit |
+| NLP | textstat, langdetect |
+| Retrieval | sentence-transformers, numpy |
+| Scheduling | python-dateutil |
+| Data Handling | pandas |
+| Notifications | Twilio (Mock) |
+
+---
+
+## 📂 Project Structure
+
+```text
+healthcare-discharge-agent/
+├── app.py
+├── services/
+│   ├── action_plan.py
+│   ├── agent_reasoning.py
+│   ├── duration_utils.py
+│   ├── reminders.py
+│   ├── care_type.py
+│   └── rag/
+│       ├── loader.py
+│       ├── retriever.py
+│       ├── danger_generator.py
+│       └── guidance_generator.py
+├── utils/
+│   ├── disclaimers.py
+│   └── citations.py
+├── evaluation/
+│   └── readability.py
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 ---
 
-## Application Screenshots
-
-![Discharge Instruction Input](screenshots/input_screen.png)  
-*Figure 1: Discharge instruction input interface.*
-
-![Simplified Instructions](screenshots/simplified_output.png)  
-*Figure 2: Simplified, patient-friendly discharge instructions generated by the agent.*
-
-![Daily Checklist](screenshots/daily_checklist.png)  
-*Figure 3: Dynamic daily checklist generated based on medication duration and care type.*
-
-![Danger Signs](screenshots/danger_signs.png)  
-*Figure 4: Personalized danger signs detected from discharge instructions.*
-
-![Follow-Up Reminders](screenshots/follow_up_reminder.png)  
-*Figure 5: Follow-up reminder generation based on extracted timelines.*
+## 🧪 Sample Input
+Take prescribed antibiotics twice daily for 7 days.
+Avoid strenuous activity for 1 week.
+Follow up with the primary care physician in 1 week.
 
 ---
 
-## Tech Stack
+## ⚠️ Disclaimer
 
-- **Frontend:** Streamlit  
-- **Backend:** Python  
-- **NLP:** Rule-based parsing and heuristics  
-- **Architecture:** Modular service-based design  
+This tool is designed to assist patients in understanding discharge instructions.
+It does not replace professional medical advice.
 
----
-
-## How to Run Locally
-
-```bash
-git clone https://github.com/YOUR-GITHUB-REPO
-cd healthcare-discharge-agent
-python -m venv venv
-venv\Scripts\activate   # Windows
-pip install -r requirements.txt
-streamlit run app.py
-```
----
-
-## Future Enhancements
-
-- Retrieval-Augmented Generation (RAG) with medical guidelines
-
-- Multilingual instruction support
-
-- Real SMS / notification integration
-
-- EHR system integration
-
-- Voice-based discharge instructions
-
-- Clinician monitoring dashboard
-
-## Hackathon Relevance
-
-This project demonstrates:
-
-- Real-world healthcare impact
-
-- Agentic AI principles
-
-- Safe and explainable decision logic
-
-- Scalable and extensible architecture
-
-## License
-
-This project is developed for educational and hackathon purposes.
