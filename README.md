@@ -77,6 +77,25 @@ The system follows a structured **agent-like reasoning pipeline**:
 
 ---
 
+## 📸 Application Screenshots
+
+### 🏠 Home Screen
+![Home Screen](screenshots/home.png)
+
+### 📄 Simplified Discharge Instructions
+![Simplified Instructions](screenshots/simplified.png)
+
+### 📅 Personalized Action Plan
+![Action Plan](screenshots/action_plan.png)
+
+### ⚠️ Danger Signs & Follow-Up
+![Danger Signs](screenshots/danger_signs.png)
+
+### 📲 SMS Reminder Preview
+![SMS Preview](screenshots/sms_preview.png)
+
+---
+
 ## 🛡 Why We Avoided LLM APIs
 
 In healthcare systems:
