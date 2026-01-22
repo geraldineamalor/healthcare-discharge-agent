@@ -1,20 +1,43 @@
 import re
 
-def extract_duration_days(text):
+def extract_medications(text):
     """
-    Extract number of days from phrases like:
-    - in 10 days
-    - after 2 weeks
-    - within 1 week
+    Extract medication name, frequency, and duration from discharge instructions.
+    Returns a list of dicts.
     """
+
+    medications = []
     text = text.lower()
 
-    day_match = re.search(r'(\d+)\s*day', text)
-    if day_match:
-        return int(day_match.group(1))
+    # Split into sentences
+    sentences = re.split(r'[.\n]', text)
 
-    week_match = re.search(r'(\d+)\s*week', text)
-    if week_match:
-        return int(week_match.group(1)) * 7
+    for sentence in sentences:
+        if "take" not in sentence:
+            continue
 
-    return None
+        # Frequency
+        freq = None
+        if "once daily" in sentence:
+            freq = "Once Daily"
+        elif "twice daily" in sentence:
+            freq = "Twice Daily"
+        elif "thrice daily" in sentence:
+            freq = "Thrice Daily"
+
+        # Duration
+        duration_match = re.search(r'(\d+)\s*days', sentence)
+        days = int(duration_match.group(1)) if duration_match else None
+
+        # Medication name (simple but safe)
+        med_match = re.search(r'take\s+(.*?)\s+(once|twice|thrice)', sentence)
+        medication = med_match.group(1).strip() if med_match else "Medication"
+
+        if freq and days:
+            medications.append({
+                "name": medication.title(),
+                "frequency": freq,
+                "days": days
+            })
+
+    return medications

@@ -1,0 +1,20 @@
+Condition: Diabetes
+
+Care Instructions:
+- Take insulin or oral medications as prescribed.
+- Monitor blood sugar levels regularly.
+- Follow dietary recommendations provided by your healthcare provider.
+- Maintain regular meal timings.
+- Stay hydrated and avoid skipping meals.
+
+Lifestyle Guidance:
+- Engage in regular light to moderate physical activity.
+- Avoid excessive sugar intake.
+- Manage stress and sleep well.
+
+Danger Signs:
+- Very high or very low blood sugar readings.
+- Dizziness, confusion, or fainting.
+- Excessive thirst or frequent urination.
+- Blurred vision.
+- Signs of infection or slow-healing wounds.

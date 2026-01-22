@@ -1,26 +1,48 @@
-from services.duration_utils import extract_duration_days
 from services.frequency_utils import parse_frequency
+from services.duration_utils import extract_medications
 
 def create_action_plan(text):
+    medications = extract_medications(text)
     plan = {}
 
-    duration = extract_duration_days(text) or 1
-    frequency_slots = parse_frequency(text)
+    if not medications:
+        return plan
 
-    for day in range(1, duration + 1):
-        day_key = f"Day {day}"
-        plan[day_key] = {}
+    max_days = max(med["days"] for med in medications)
 
-        # Medication tasks
-        if frequency_slots:
-            for slot in frequency_slots:
-                plan[day_key].setdefault(slot, []).append(
-                    "Take prescribed medication"
+    for day in range(1, max_days + 1):
+        plan[f"Day {day}"] = {
+            "Morning": [],
+            "Afternoon": [],
+            "Evening": []
+        }
+
+        for med in medications:
+            if day > med["days"]:
+                continue
+
+            if med["frequency"] == "Once Daily":
+                plan[f"Day {day}"]["Morning"].append(
+                    f"Take {med['name']}"
                 )
 
-        # Always add rest instruction in evening
-        plan[day_key].setdefault("Evening", []).append(
-            "Rest and follow care instructions"
-        )
+            elif med["frequency"] == "Twice Daily":
+                plan[f"Day {day}"]["Morning"].append(
+                    f"Take {med['name']}"
+                )
+                plan[f"Day {day}"]["Evening"].append(
+                    f"Take {med['name']}"
+                )
+
+            elif med["frequency"] == "Thrice Daily":
+                plan[f"Day {day}"]["Morning"].append(
+                    f"Take {med['name']}"
+                )
+                plan[f"Day {day}"]["Afternoon"].append(
+                    f"Take {med['name']}"
+                )
+                plan[f"Day {day}"]["Evening"].append(
+                    f"Take {med['name']}"
+                )
 
     return plan

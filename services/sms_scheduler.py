@@ -1,14 +1,29 @@
 from datetime import datetime, timedelta
-from services.sms_reminders import send_sms_mock
 
-def schedule_medication_sms(plan, phone_number):
-    today = datetime.now()
+def schedule_medication_sms(plan, phone):
+    scheduled = []
+    start_date = datetime.today()
 
+    day_count = 0
     for day, tasks in plan.items():
-        day_num = int(day.split(" ")[1])
-        date = today + timedelta(days=day_num - 1)
+        if not day.startswith("Day"):
+            continue
+
+        date = start_date + timedelta(days=day_count)
+        day_count += 1
 
         for time, task_list in tasks.items():
             for task in task_list:
                 message = f"{time} Reminder ({date.date()}): {task}"
-                send_sms_mock(phone_number, message)
+
+                # Mock SMS print
+                print(f"[MOCK SMS] To {phone}: {message}")
+
+                scheduled.append({
+                    "day": day,
+                    "date": date.strftime("%d %b %Y"),
+                    "time": time,
+                    "task": task
+                })
+
+    return scheduled

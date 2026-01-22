@@ -1,24 +1,17 @@
-# Python
+# Virtual environments
+venv/
+venv310/
+
+# Python cache
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.egg-info/
-
-# Virtual environment
-venv/
-env/
-.venv/
 
 # Environment variables
 .env
 
-# Streamlit
-.streamlit/secrets.toml
-
-# VS Code
-.vscode/
-
 # OS files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
