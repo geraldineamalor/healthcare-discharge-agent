@@ -5,8 +5,8 @@ A **patient-centric, explainable AI system** that transforms complex hospital di
 ---
 
 ## 🚀 Live Demo
-- 🔗 **Streamlit App:** https://<your-streamlit-link>
-- 🔗 **GitHub Repository:** https://<your-github-link>
+- 🔗 **Streamlit App:** https://healthcare-discharge-agent-aiignite.streamlit.app/
+- 🔗 **GitHub Repository:** https://github.com/geraldineamalor/healthcare-discharge-agent
 
 ---
 
